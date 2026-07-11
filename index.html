@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wok Express | Cocina de Autor</title>
+
+    <link rel="icon" href="img/logo.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!--========================
+            HEADER
+    =========================-->
+
+    <header>
+
+        <nav class="navbar">
+
+            <div class="logo">
+
+                <img src="img/logo.png" alt="Wok Express">
+
+            </div>
+
+            <ul class="nav-links">
+
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#menu">Menú</a></li>
+                <li><a href="#historia">Historia</a></li>
+                <li><a href="#horario">Horario</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+
+            </ul>
+
+            <div class="cart-button">
+
+                <button id="openCart">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    <span id="cart-count">0</span>
+
+                </button>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!--========================
+            HERO
+    =========================-->
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <img src="img/logo.png" class="hero-logo" alt="Logo">
+
+            <h1>
+                Más que un arroz chino,
+                una fusión de culturas.
+            </h1>
+
+            <p>
+
+                Wok Express fusiona los sabores de China, Colombia, México, Perú y Venezuela para crear una experiencia gastronómica única, preparada con ingredientes frescos y servida con la mejor calidad.
+
+            </p>
+
+            <a href="#menu" class="btnHero">
+
+                Ver Menú
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <!--========================
+            SOBRE
+    =========================-->
+
+    <section class="about">
+
+        <div class="container">
+
+            <div class="about-text">
+
+                <span>NUESTRA ESENCIA</span>
+
+                <h2>Cocina de Autor</h2>
+
+                <p>
+
+                    En Wok Express reinventamos el tradicional arroz chino para ofrecer una experiencia gastronómica diferente. Cada plato combina ingredientes frescos, sabores intensos y recetas inspiradas en distintas culturas.
+
+                </p>
+
+                <p>
+
+                    Nuestro compromiso es brindar calidad, rapidez y una presentación impecable para que disfrutes cada bocado.
+
+                </p>
+
+            </div>
+
+            <div class="about-card">
+
+                <div class="item">
+
+                    <i class="fa-solid fa-fire"></i>
+
+                    <h3>Ingredientes Frescos</h3>
+
+                </div>
+
+                <div class="item">
+
+                    <i class="fa-solid fa-bowl-food"></i>
+
+                    <h3>Cocina al Momento</h3>
+
+                </div>
+
+                <div class="item">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+                    <h3>Domicilios</h3>
+
+                </div>
+
+                <div class="item">
+
+                    <i class="fa-solid fa-star"></i>
+
+                    <h3>Calidad Premium</h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--========================
+            MENU
+    =========================-->
+
+    <section class="menu" id="menu">
+
+        <div class="title">
+
+            <span>NUESTRO MENÚ</span>
+
+            <h2>Los favoritos de Wok Express</h2>
+
+            <p>
+
+                Selecciona los platos que deseas agregar al carrito.
+
+            </p>
+
+        </div>
+
+        <div class="products">
+
+            <!-- PLATO 1 -->
+
+            <div class="card">
+
+                <img src="img/plato1.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Arroz Especial</h3>
+
+                    <p>
+
+                        Arroz salteado con pollo, carne, cerdo, verduras frescas y salsa especial.
+
+                    </p>
+
+                    <div class="price">
+
+                        <span>$18.000</span>
+
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Arroz Especial"
+                        data-price="18000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 2 -->
+
+            <div class="card">
+
+                <img src="img/plato2.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Arroz Mixto</h3>
+
+                    <p>
+
+                        Pollo, carne, verduras, huevo y salsa oriental.
+
+                    </p>
+
+                    <div class="price">
+
+                        <span>$20.000</span>
+
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Arroz Mixto"
+                        data-price="20000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 3 -->
+
+            <div class="card">
+
+                <img src="img/plato3.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Chop Suey</h3>
+
+                    <p>
+
+                        Vegetales salteados con proteína a elección.
+
+                    </p>
+
+                    <div class="price">
+
+                        <span>$19.000</span>
+
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Chop Suey"
+                        data-price="19000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 4 -->
+
+            <div class="card">
+
+                <img src="img/plato4.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Lumpias</h3>
+
+                    <p>
+
+                        Rollitos crujientes rellenos de verduras y carne.
+
+                    </p>
+
+                    <div class="price">
+
+                        <span>$12.000</span>
+
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Lumpias"
+                        data-price="12000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 5 -->
+
+            <div class="card">
+
+                <img src="img/plato5.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Arroz Ranchero</h3>
+
+                    <p>
+                        Arroz salteado con chorizo, pollo, maíz, tocineta y vegetales.
+                    </p>
+
+                    <div class="price">
+                        <span>$22.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Arroz Ranchero"
+                        data-price="22000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 6 -->
+
+            <div class="card">
+
+                <img src="img/plato6.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Arroz Tropical</h3>
+
+                    <p>
+                        Piña, pollo, jamón, vegetales y salsa especial.
+                    </p>
+
+                    <div class="price">
+                        <span>$23.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Arroz Tropical"
+                        data-price="23000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 7 -->
+
+            <div class="card">
+
+                <img src="img/plato7.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Arroz Mexicano</h3>
+
+                    <p>
+                        Carne, jalapeños, maíz, frijoles y queso.
+                    </p>
+
+                    <div class="price">
+                        <span>$24.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Arroz Mexicano"
+                        data-price="24000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 8 -->
+
+            <div class="card">
+
+                <img src="img/plato8.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Arroz Peruano</h3>
+
+                    <p>
+                        Pollo, verduras, salsa oriental y especias peruanas.
+                    </p>
+
+                    <div class="price">
+                        <span>$25.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Arroz Peruano"
+                        data-price="25000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 9 -->
+
+            <div class="card">
+
+                <img src="img/plato9.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Combo Familiar</h3>
+
+                    <p>
+                        Arroz especial para 4 personas con lumpias y bebida.
+                    </p>
+
+                    <div class="price">
+                        <span>$55.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Combo Familiar"
+                        data-price="55000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 10 -->
+
+            <div class="card">
+
+                <img src="img/plato10.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Chow Mein</h3>
+
+                    <p>
+                        Fideos orientales con verduras y proteína.
+                    </p>
+
+                    <div class="price">
+                        <span>$21.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Chow Mein"
+                        data-price="21000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- PLATO 11 -->
+
+            <div class="card">
+
+                <img src="img/plato11.jpg" alt="">
+
+                <div class="card-content">
+
+                    <h3>Wok Premium</h3>
+
+                    <p>
+                        Nuestra especialidad con camarones, pollo, carne y vegetales.
+                    </p>
+
+                    <div class="price">
+                        <span>$30.000</span>
+                    </div>
+
+                    <button
+                        class="add-cart"
+                        data-name="Wok Premium"
+                        data-price="30000">
+
+                        Agregar al carrito
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--==============================
+            CARRITO
+    ==============================-->
+
+    <aside class="cart" id="cart">
+
+        <div class="cart-header">
+
+            <h2>Mi Pedido</h2>
+
+            <button id="closeCart">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <div id="cartItems"></div>
+
+        <div class="cart-total">
+
+            <p>Subtotal</p>
+
+            <span id="subtotal">$0</span>
+
+        </div>
+
+        <div class="cart-total">
+
+            <p>Domicilio</p>
+
+            <span>$5.000</span>
+
+        </div>
+
+        <div class="cart-total total">
+
+            <h3>Total</h3>
+
+            <h2 id="total">$5.000</h2>
+
+        </div>
+
+        <button id="checkout" class="checkout">
+
+            Finalizar Pedido
+
+        </button>
+
+    </aside>
+    <!--==============================
+            MODAL PEDIDO
+    ==============================-->
+
+    <section class="checkout-modal" id="checkoutModal">
+
+        <div class="checkout-box">
+
+            <h2>Finalizar Pedido</h2>
+
+            <form id="orderForm">
+
+                <input
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre Completo"
+                    required>
+
+                <input
+                    type="text"
+                    id="direccion"
+                    placeholder="Dirección en Chinchiná"
+                    required>
+
+                <input
+                    type="text"
+                    id="barrio"
+                    placeholder="Barrio"
+                    required>
+
+                <input
+                    type="tel"
+                    id="telefono"
+                    placeholder="Número de contacto"
+                    required>
+
+                <textarea
+                    id="observaciones"
+                    rows="4"
+                    placeholder="Observaciones (Opcional)"></textarea>
+
+                <button type="submit">
+
+                    Enviar Pedido por WhatsApp
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <!--==============================
+            HISTORIA
+    ==============================-->
+
+    <section class="history" id="historia">
+
+        <div class="container">
+
+            <div class="history-text">
+
+                <span>NUESTRA HISTORIA</span>
+
+                <h2>La pasión por el Wok</h2>
+
+                <p>
+
+                    Wok Express nace con el propósito de ofrecer una experiencia gastronómica diferente, donde el tradicional arroz chino evoluciona hacia una cocina de autor llena de sabores, colores y creatividad.
+
+                </p>
+
+                <p>
+
+                    Nuestra inspiración proviene de la gastronomía de China, Colombia, México, Perú y Venezuela, fusionando ingredientes frescos con recetas cuidadosamente elaboradas para brindar platos únicos que sorprenden en cada visita.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--==============================
+            HORARIO
+    ==============================-->
+
+    <section class="schedule" id="horario">
+
+        <div class="title">
+
+            <span>HORARIOS</span>
+
+            <h2>Siempre listos para atenderte</h2>
+
+        </div>
+
+        <div class="schedule-box">
+
+            <div>
+
+                <h3>Lunes - Domingo</h3>
+
+                <p>11:00 AM - 10:00 PM</p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--==============================
+            UBICACION
+    ==============================-->
+
+    <section class="location" id="ubicacion">
+
+        <div class="title">
+
+            <span>UBÍCANOS</span>
+
+            <h2>Visítanos en Chinchiná</h2>
+
+        </div>
+
+        <div class="location-content">
+
+            <div class="location-info">
+
+                <h3>Wok Express</h3>
+
+                <p>
+
+                    Chinchiná - Caldas
+
+                </p>
+
+                <p>
+
+                    Domicilios disponibles únicamente en Chinchiná.
+
+                </p>
+
+            </div>
+
+            <div class="map">
+
+                <iframe
+                    src="https://www.google.com/maps?q=Chinchiná,Caldas&output=embed"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--==============================
+            FOOTER
+    ==============================-->
+
+    <footer>
+
+        <img src="img/logo.png" alt="">
+
+        <h2>Wok Express</h2>
+
+        <p>
+
+            Cocina de Autor • Fusión de Sabores
+
+        </p>
+
+        <div class="social">
+
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+
+            <a href="#"><i class="fab fa-instagram"></i></a>
+
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+
+        </div>
+
+        <p class="copy">
+
+            © 2026 Wok Express | Todos los derechos reservados.
+
+        </p>
+
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
