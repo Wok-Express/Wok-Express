@@ -1,23 +1,32 @@
 //==============================
-//      VARIABLES
+//      CONFIGURACIÓN
 //==============================
 
-const cart = [];
 const DELIVERY = 5000;
+const numeroWhatsApp = "573225197948";
+
+let cart = [];
+
+//==============================
+//      ELEMENTOS
+//==============================
 
 const cartPanel = document.getElementById("cart");
 const openCart = document.getElementById("openCart");
 const closeCart = document.getElementById("closeCart");
 
 const cartItems = document.getElementById("cartItems");
+
 const subtotalElement = document.getElementById("subtotal");
 const totalElement = document.getElementById("total");
 const cartCount = document.getElementById("cart-count");
 
-const buttons = document.querySelectorAll(".add-cart");
+const checkout = document.getElementById("checkout");
+const checkoutModal = document.getElementById("checkoutModal");
+const orderForm = document.getElementById("orderForm");
 
 //==============================
-//      ABRIR Y CERRAR
+//      ABRIR CARRITO
 //==============================
 
 openCart.addEventListener("click",()=>{
@@ -33,48 +42,56 @@ closeCart.addEventListener("click",()=>{
 });
 
 //==============================
-//      AGREGAR PRODUCTOS
+//      BOTONES AGREGAR
 //==============================
 
-buttons.forEach(button=>{
+document.querySelectorAll(".add-cart").forEach(btn=>{
 
-    button.addEventListener("click",()=>{
+    btn.addEventListener("click",()=>{
 
-        const name=button.dataset.name;
+        addToCart(
 
-        const price=parseInt(button.dataset.price);
+            btn.dataset.name,
 
-        addToCart(name,price);
+            Number(btn.dataset.price)
+
+        );
 
     });
 
 });
 
 //==============================
-//      AGREGAR
+//      AGREGAR PRODUCTO
 //==============================
 
-function addToCart(name,price){
+function addToCart(nombre,precio){
 
-    const exist=cart.find(item=>item.name===name);
+    const existe = cart.find(p=>p.nombre===nombre);
 
-    if(exist){
+    if(existe){
 
-        exist.quantity++;
+        existe.cantidad++;
 
     }else{
 
         cart.push({
 
-            name,
-            price,
-            quantity:1
+            nombre:nombre,
+
+            precio:precio,
+
+            cantidad:1
 
         });
 
     }
 
+    guardarCarrito();
+
     renderCart();
+
+    mostrarToast("Producto agregado");
 
 }
 
@@ -82,41 +99,39 @@ function addToCart(name,price){
 //      ELIMINAR
 //==============================
 
-function removeItem(name){
+function removeItem(nombre){
 
-    const index=cart.findIndex(item=>item.name===name);
+    const index = cart.findIndex(p=>p.nombre===nombre);
 
-    if(index>-1){
+    if(index==-1) return;
 
-        cart[index].quantity--;
+    cart[index].cantidad--;
 
-        if(cart[index].quantity<=0){
+    if(cart[index].cantidad<=0){
 
-            cart.splice(index,1);
-
-        }
+        cart.splice(index,1);
 
     }
+
+    guardarCarrito();
 
     renderCart();
 
 }
-
 //==============================
-//      RENDER
+//      RENDER DEL CARRITO
 //==============================
 
 function renderCart(){
 
-    cartItems.innerHTML="";
+    cartItems.innerHTML = "";
 
-    let subtotal=0;
+    let subtotal = 0;
+    let cantidad = 0;
 
-    let count=0;
+    if(cart.length === 0){
 
-    if(cart.length===0){
-
-        cartItems.innerHTML=`
+        cartItems.innerHTML = `
 
         <div class="empty-cart">
 
@@ -130,63 +145,130 @@ function renderCart(){
 
         `;
 
-    }
+    }else{
 
-    cart.forEach(item=>{
+        cart.forEach(item=>{
 
-        subtotal+=item.price*item.quantity;
+            const totalProducto = item.precio * item.cantidad;
 
-        count+=item.quantity;
+            subtotal += totalProducto;
 
-        cartItems.innerHTML+=`
+            cantidad += item.cantidad;
 
-        <div class="cart-item">
+            cartItems.innerHTML += `
 
-            <div>
+            <div class="cart-item">
 
-                <h4>${item.name}</h4>
+                <div>
 
-                <p>
+                    <h4>${item.nombre}</h4>
 
-                    ${item.quantity} x $${item.price.toLocaleString()}
+                    <p>
 
-                </p>
+                        ${item.cantidad} x $${item.precio.toLocaleString("es-CO")}
+
+                    </p>
+
+                </div>
+
+                <button onclick="removeItem('${item.nombre}')">
+
+                    <i class="fa-solid fa-trash"></i>
+
+                </button>
 
             </div>
 
-            <button onclick="removeItem('${item.name}')">
+            `;
 
-                <i class="fa-solid fa-trash"></i>
+        });
 
-            </button>
+    }
 
-        </div>
+    cartCount.textContent = cantidad;
 
-        `;
+    subtotalElement.textContent = "$" + subtotal.toLocaleString("es-CO");
 
-    });
-
-    subtotalElement.innerText="$"+subtotal.toLocaleString();
-
-    totalElement.innerText="$"+(subtotal+DELIVERY).toLocaleString();
-
-    cartCount.innerText=count;
+    totalElement.textContent = "$" + (subtotal + DELIVERY).toLocaleString("es-CO");
 
 }
 
 //==============================
-//      CHECKOUT
+//      LOCAL STORAGE
 //==============================
 
-const checkout=document.getElementById("checkout");
-const checkoutModal=document.getElementById("checkoutModal");
-const orderForm=document.getElementById("orderForm");
+function guardarCarrito(){
+
+    localStorage.setItem(
+
+        "wokexpress_cart",
+
+        JSON.stringify(cart)
+
+    );
+
+}
+
+function cargarCarrito(){
+
+    const datos = localStorage.getItem("wokexpress_cart");
+
+    if(datos){
+
+        cart = JSON.parse(datos);
+
+    }
+
+}
+
+//==============================
+//      TOAST
+//==============================
+
+function mostrarToast(texto){
+
+    const toast = document.createElement("div");
+
+    toast.className = "toast";
+
+    toast.innerHTML = `
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span>${texto}</span>
+
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(()=>{
+
+        toast.classList.add("show");
+
+    },100);
+
+    setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+        setTimeout(()=>{
+
+            toast.remove();
+
+        },300);
+
+    },2200);
+
+}
+//==============================
+//      ABRIR CHECKOUT
+//==============================
 
 checkout.addEventListener("click",()=>{
 
     if(cart.length===0){
 
-        alert("Agrega al menos un producto.");
+        alert("Debes agregar al menos un producto.");
 
         return;
 
@@ -214,73 +296,76 @@ orderForm.addEventListener("submit",(e)=>{
 
     e.preventDefault();
 
-    const nombre = document.getElementById("nombre").value.trim();
-    const direccion = document.getElementById("direccion").value.trim();
-    const barrio = document.getElementById("barrio").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-    const observaciones = document.getElementById("observaciones").value.trim();
+    const nombre=document.getElementById("nombre").value.trim();
+    const direccion=document.getElementById("direccion").value.trim();
+    const barrio=document.getElementById("barrio").value.trim();
+    const telefono=document.getElementById("telefono").value.trim();
+    const observaciones=document.getElementById("observaciones").value.trim();
 
     if(!nombre || !direccion || !barrio || !telefono){
 
-        alert("Completa todos los campos.");
+        alert("Completa todos los datos.");
 
         return;
 
     }
 
-    const numero = "573225197948";
+    let totalPedido=0;
 
-    let subtotal = 0;
+    let mensaje="WOK EXPRESS\n\n";
 
-    let mensaje = "WOK EXPRESS\n\n";
+    mensaje+="NUEVO PEDIDO\n\n";
 
-    mensaje += "NUEVO PEDIDO\n\n";
+    mensaje+="Cliente:\n";
+    mensaje+=nombre+"\n\n";
 
-    mensaje += "Cliente:\n";
-    mensaje += nombre + "\n\n";
+    mensaje+="Dirección:\n";
+    mensaje+=direccion+"\n\n";
 
-    mensaje += "Dirección:\n";
-    mensaje += direccion + "\n\n";
+    mensaje+="Barrio:\n";
+    mensaje+=barrio+"\n\n";
 
-    mensaje += "Barrio:\n";
-    mensaje += barrio + "\n\n";
+    mensaje+="Teléfono:\n";
+    mensaje+=telefono+"\n\n";
 
-    mensaje += "Teléfono:\n";
-    mensaje += telefono + "\n\n";
-
-    mensaje += "-------------------------\n";
-    mensaje += "PEDIDO\n";
-    mensaje += "-------------------------\n\n";
+    mensaje+="========================\n";
+    mensaje+="PEDIDO\n";
+    mensaje+="========================\n\n";
 
     cart.forEach(item=>{
 
-        const total = item.price * item.quantity;
+        const total=item.precio*item.cantidad;
 
-        subtotal += total;
+        totalPedido+=total;
 
-        mensaje += item.quantity + " x " + item.name + "\n";
-        mensaje += "$" + total.toLocaleString("es-CO") + "\n\n";
+        mensaje+=item.cantidad+" x "+item.nombre+"\n";
+        mensaje+="$"+total.toLocaleString("es-CO")+"\n\n";
 
     });
 
-    mensaje += "-------------------------\n";
-    mensaje += "Domicilio: $5.000\n";
-    mensaje += "TOTAL: $" + (subtotal + DELIVERY).toLocaleString("es-CO") + "\n";
-    mensaje += "-------------------------";
+    mensaje+="========================\n";
+    mensaje+="Domicilio: $5.000\n";
+    mensaje+="TOTAL: $"+(totalPedido+DELIVERY).toLocaleString("es-CO")+"\n";
+    mensaje+="========================";
 
-    if(observaciones){
+    if(observaciones!=""){
 
-        mensaje += "\n\nObservaciones:\n";
-        mensaje += observaciones;
+        mensaje+="\n\nObservaciones:\n";
+        mensaje+=observaciones;
 
     }
 
     window.open(
-        `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`,
+
+        "https://wa.me/"+numeroWhatsApp+"?text="+encodeURIComponent(mensaje),
+
         "_blank"
+
     );
 
-    cart.length = 0;
+    cart=[];
+
+    guardarCarrito();
 
     renderCart();
 
@@ -289,231 +374,3 @@ orderForm.addEventListener("submit",(e)=>{
     checkoutModal.classList.remove("active");
 
 });
-);
-        }
-
-    //==============================
-    // CAMBIA ESTE NÚMERO
-    //==============================
-
-    const numero="573225197948";
-
-    window.open(
-
-        "https://wa.me/"+numero+"?text="+mensaje,
-
-        "_blank"
-
-    );
-
-    cart.length=0;
-
-    renderCart();
-
-    orderForm.reset();
-
-    checkoutModal.classList.remove("active");
-
-});
-
-//==============================
-//      LOCAL STORAGE
-//==============================
-
-function saveCart(){
-
-    localStorage.setItem("wokexpress_cart",JSON.stringify(cart));
-
-}
-
-function loadCart(){
-
-    const saved=localStorage.getItem("wokexpress_cart");
-
-    if(saved){
-
-        const data=JSON.parse(saved);
-
-        data.forEach(item=>cart.push(item));
-
-        renderCart();
-
-    }
-
-}
-
-const originalRender=renderCart;
-
-renderCart=function(){
-
-    originalRender();
-
-    saveCart();
-
-};
-
-//==============================
-//      NOTIFICACIÓN
-//==============================
-
-function showToast(message){
-
-    const toast=document.createElement("div");
-
-    toast.className="toast";
-
-    toast.innerHTML=`
-        <i class="fa-solid fa-circle-check"></i>
-        <span>${message}</span>
-    `;
-
-    document.body.appendChild(toast);
-
-    setTimeout(()=>{
-
-        toast.classList.add("show");
-
-    },100);
-
-    setTimeout(()=>{
-
-        toast.classList.remove("show");
-
-        setTimeout(()=>{
-
-            toast.remove();
-
-        },300);
-
-    },2200);
-
-}
-
-//==============================
-//      BOTONES
-//==============================
-
-buttons.forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-        showToast("Producto agregado al carrito");
-
-    });
-
-});
-
-//==============================
-//      INICIAR
-//==============================
-
-loadCart();
-
-renderCart();
-
-//==============================
-//      ANIMACIÓN SCROLL
-//==============================
-
-const observer=new IntersectionObserver(entries=>{
-
-    entries.forEach(entry=>{
-
-        if(entry.isIntersecting){
-
-            entry.target.classList.add("visible");
-
-        }
-
-    });
-
-},{
-    threshold:.15
-});
-
-document.querySelectorAll(".card,.item,.history,.schedule-box,.location-info").forEach(el=>{
-
-    observer.observe(el);
-
-});
-
-//==============================
-//      BOTÓN VOLVER ARRIBA
-//==============================
-
-const topButton=document.createElement("button");
-
-topButton.innerHTML='<i class="fa-solid fa-arrow-up"></i>';
-
-topButton.className="topButton";
-
-document.body.appendChild(topButton);
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY>400){
-
-        topButton.classList.add("show");
-
-    }else{
-
-        topButton.classList.remove("show");
-
-    }
-
-});
-
-topButton.addEventListener("click",()=>{
-
-    window.scrollTo({
-
-        top:0,
-
-        behavior:"smooth"
-
-    });
-
-});
-
-//==============================
-//      CERRAR CARRITO CON ESC
-//==============================
-
-document.addEventListener("keydown",(e)=>{
-
-    if(e.key==="Escape"){
-
-        cartPanel.classList.remove("active");
-
-        checkoutModal.classList.remove("active");
-
-    }
-
-});
-
-//==============================
-//      EFECTO NAVBAR
-//==============================
-
-const navbar=document.querySelector(".navbar");
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY>50){
-
-        navbar.style.background="#111";
-
-        navbar.style.padding="12px 8%";
-
-    }else{
-
-        navbar.style.background="rgba(0,0,0,.75)";
-
-        navbar.style.padding="18px 8%";
-
-    }
-
-});
-
-console.log("%c🍜 Wok Express","font-size:22px;color:#d62828;font-weight:bold;");
-console.log("%cSitio desarrollado con HTML, CSS y JavaScript.","color:#555;");
