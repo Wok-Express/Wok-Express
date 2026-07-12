@@ -214,112 +214,83 @@ orderForm.addEventListener("submit",(e)=>{
 
     e.preventDefault();
 
-    const nombre=document.getElementById("nombre").value.trim();
+    const nombre = document.getElementById("nombre").value.trim();
+    const direccion = document.getElementById("direccion").value.trim();
+    const barrio = document.getElementById("barrio").value.trim();
+    const telefono = document.getElementById("telefono").value.trim();
+    const observaciones = document.getElementById("observaciones").value.trim();
 
-    const direccion=document.getElementById("direccion").value.trim();
+    if(!nombre || !direccion || !barrio || !telefono){
 
-    const barrio=document.getElementById("barrio").value.trim();
-
-    const telefono=document.getElementById("telefono").value.trim();
-
-    const observaciones=document.getElementById("observaciones").value.trim();
-
-    if(nombre===""){
-
-        alert("Ingresa tu nombre.");
+        alert("Completa todos los campos.");
 
         return;
 
     }
 
-    if(direccion===""){
-
-        alert("Ingresa la dirección.");
-
-        return;
-
-    }
-
-    if(barrio===""){
-
-        alert("Ingresa el barrio.");
-
-        return;
-
-    }
-
-    if(telefono===""){
-
-        alert("Ingresa un teléfono.");
-
-        return;
-
-    }
+    const numero = "573225197948";
 
     let subtotal = 0;
 
-let mensaje = `*WOK EXPRESS*
+    let mensaje = "WOK EXPRESS\n\n";
 
-*NUEVO PEDIDO*
+    mensaje += "NUEVO PEDIDO\n\n";
 
+    mensaje += "Cliente:\n";
+    mensaje += nombre + "\n\n";
 
-Cliente:
-${nombre}
+    mensaje += "Dirección:\n";
+    mensaje += direccion + "\n\n";
 
+    mensaje += "Barrio:\n";
+    mensaje += barrio + "\n\n";
 
-Dirección:
-${direccion}
+    mensaje += "Teléfono:\n";
+    mensaje += telefono + "\n\n";
 
+    mensaje += "-------------------------\n";
+    mensaje += "PEDIDO\n";
+    mensaje += "-------------------------\n\n";
 
-Barrio:
-${barrio}
+    cart.forEach(item=>{
 
+        const total = item.price * item.quantity;
 
-Teléfono:
-${telefono}
+        subtotal += total;
 
+        mensaje += item.quantity + " x " + item.name + "\n";
+        mensaje += "$" + total.toLocaleString("es-CO") + "\n\n";
 
--------------------------
-PEDIDO
--------------------------`;
+    });
 
-cart.forEach(item => {
+    mensaje += "-------------------------\n";
+    mensaje += "Domicilio: $5.000\n";
+    mensaje += "TOTAL: $" + (subtotal + DELIVERY).toLocaleString("es-CO") + "\n";
+    mensaje += "-------------------------";
 
-    const total = item.price * item.quantity;
+    if(observaciones){
 
-    subtotal += total;
+        mensaje += "\n\nObservaciones:\n";
+        mensaje += observaciones;
 
-    mensaje += `
+    }
 
-${item.quantity} x ${item.name}
-$${total.toLocaleString("es-CO")}`;
+    window.open(
+        `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`,
+        "_blank"
+    );
+
+    cart.length = 0;
+
+    renderCart();
+
+    orderForm.reset();
+
+    checkoutModal.classList.remove("active");
 
 });
-
-mensaje += `
-
-
--------------------------
-Domicilio: $5.000
-
-TOTAL: $${(subtotal + DELIVERY).toLocaleString("es-CO")}
--------------------------`;
-
-if(observaciones.trim() !== ""){
-
-    mensaje += `
-
-
-Observaciones:
-${observaciones}`;
-
-}
-
-window.open(
-    `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`,
-    "_blank"
 );
-    }
+        }
 
     //==============================
     // CAMBIA ESTE NÚMERO
