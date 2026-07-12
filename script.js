@@ -258,20 +258,30 @@ orderForm.addEventListener("submit",(e)=>{
 
     let subtotal = 0;
 
-let mensaje = `*🍜 WOK EXPRESS*
+let mensaje = `*WOK EXPRESS*
 
 *NUEVO PEDIDO*
 
-👤 Cliente: ${nombre}
 
-📍 Dirección: ${direccion}
+Cliente:
+${nombre}
 
-🏘️ Barrio: ${barrio}
 
-📞 Teléfono: ${telefono}
+Dirección:
+${direccion}
 
-🛒 PEDIDO
-`;
+
+Barrio:
+${barrio}
+
+
+Teléfono:
+${telefono}
+
+
+-------------------------
+PEDIDO
+-------------------------`;
 
 cart.forEach(item => {
 
@@ -281,26 +291,27 @@ cart.forEach(item => {
 
     mensaje += `
 
-• ${item.quantity} x ${item.name}
-  $${total.toLocaleString("es-CO")}
-`;
+${item.quantity} x ${item.name}
+$${total.toLocaleString("es-CO")}`;
 
 });
 
 mensaje += `
 
-🚚 Domicilio: $5.000
 
-💵 TOTAL: $${(subtotal + DELIVERY).toLocaleString("es-CO")}
-`;
+-------------------------
+Domicilio: $5.000
 
-if(observaciones!=""){
+TOTAL: $${(subtotal + DELIVERY).toLocaleString("es-CO")}
+-------------------------`;
+
+if(observaciones.trim() !== ""){
 
     mensaje += `
 
-📝 Observaciones:
-${observaciones}
-`;
+
+Observaciones:
+${observaciones}`;
 
 }
 
