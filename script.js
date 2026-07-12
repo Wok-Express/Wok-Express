@@ -256,50 +256,58 @@ orderForm.addEventListener("submit",(e)=>{
 
     }
 
-    let subtotal=0;
+    let subtotal = 0;
 
-    let mensaje="🍜 *WOK EXPRESS*%0A%0A";
+let mensaje = `*🍜 WOK EXPRESS*
 
-    mensaje+="*NUEVO PEDIDO*%0A%0A";
+*NUEVO PEDIDO*
 
-    mensaje+="👤 *Cliente:* "+nombre+"%0A";
+👤 Cliente: ${nombre}
 
-    mensaje+="📍 *Dirección:* "+direccion+"%0A";
+📍 Dirección: ${direccion}
 
-    mensaje+="🏘️ *Barrio:* "+barrio+"%0A";
+🏘️ Barrio: ${barrio}
 
-    mensaje+="📞 *Teléfono:* "+telefono+"%0A%0A";
+📞 Teléfono: ${telefono}
 
-    mensaje+="🛒 *PEDIDO*%0A";
+🛒 PEDIDO
+`;
 
-    cart.forEach(item=>{
+cart.forEach(item => {
 
-        const total=item.price*item.quantity;
+    const total = item.price * item.quantity;
 
-        subtotal+=total;
+    subtotal += total;
 
-        mensaje+="%0A";
+    mensaje += `
 
-        mensaje+=item.quantity+" x "+item.name;
+• ${item.quantity} x ${item.name}
+  $${total.toLocaleString("es-CO")}
+`;
 
-        mensaje+=" - $"+total.toLocaleString();
+});
 
-    });
+mensaje += `
 
-    mensaje+="%0A%0A";
+🚚 Domicilio: $5.000
 
-    mensaje+="🚚 Domicilio: $5.000%0A";
+💵 TOTAL: $${(subtotal + DELIVERY).toLocaleString("es-CO")}
+`;
 
-    mensaje+="💰 Subtotal: $"+subtotal.toLocaleString()+"%0A";
+if(observaciones!=""){
 
-    mensaje+="💵 TOTAL: $"+(subtotal+DELIVERY).toLocaleString()+"%0A";
+    mensaje += `
 
-    if(observaciones!=""){
+📝 Observaciones:
+${observaciones}
+`;
 
-        mensaje+="%0A📝 Observaciones:%0A";
+}
 
-        mensaje+=observaciones+"%0A";
-
+window.open(
+    `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`,
+    "_blank"
+);
     }
 
     //==============================
