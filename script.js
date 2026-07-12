@@ -374,3 +374,120 @@ orderForm.addEventListener("submit",(e)=>{
     checkoutModal.classList.remove("active");
 
 });
+//==============================
+//      INICIAR CARRITO
+//==============================
+
+cargarCarrito();
+
+renderCart();
+
+//==============================
+//      ANIMACIONES SCROLL
+//==============================
+
+const observer = new IntersectionObserver((entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("visible");
+
+        }
+
+    });
+
+},{
+    threshold:0.15
+});
+
+document.querySelectorAll(
+
+".card,.item,.history,.schedule-box,.location-info"
+
+).forEach(element=>{
+
+    observer.observe(element);
+
+});
+
+//==============================
+//      BOTÓN SUBIR
+//==============================
+
+const topButton = document.createElement("button");
+
+topButton.className = "topButton";
+
+topButton.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+
+document.body.appendChild(topButton);
+
+window.addEventListener("scroll",()=>{
+
+    if(window.scrollY>350){
+
+        topButton.classList.add("show");
+
+    }else{
+
+        topButton.classList.remove("show");
+
+    }
+
+});
+
+topButton.addEventListener("click",()=>{
+
+    window.scrollTo({
+
+        top:0,
+
+        behavior:"smooth"
+
+    });
+
+});
+
+//==============================
+//      ESC
+//==============================
+
+document.addEventListener("keydown",(e)=>{
+
+    if(e.key==="Escape"){
+
+        cartPanel.classList.remove("active");
+
+        checkoutModal.classList.remove("active");
+
+    }
+
+});
+
+//==============================
+//      NAVBAR
+//==============================
+
+const navbar=document.querySelector(".navbar");
+
+window.addEventListener("scroll",()=>{
+
+    if(window.scrollY>50){
+
+        navbar.style.background="#111";
+
+        navbar.style.padding="12px 8%";
+
+    }else{
+
+        navbar.style.background="rgba(0,0,0,.75)";
+
+        navbar.style.padding="18px 8%";
+
+    }
+
+});
+
+console.log("Wok Express listo.");
